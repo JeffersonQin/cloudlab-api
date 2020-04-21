@@ -38,9 +38,9 @@ platform, you'll need to have added an ssh key to your Powder account. If you
 haven't already done this, you can find instructions
 [here](https://docs.powderwireless.net/users.html#%28part._ssh-access%29).
 You'll also need to download your Powder credentials. You'll find a button to do
-so in the drop-down menu accessed by clicking on you username after logging into
-the Powder portal. You'll end up with the file `cloudlab.pem`. Remember where
-you put it, because you'll need its path later.
+so in the drop-down menu accessed by clicking on your username after logging
+into the Powder portal. You'll end up with the file `cloudlab.pem`. Remember
+where you put it, because you'll need its path later.
 
 ### Running the Example
 
@@ -51,7 +51,7 @@ key is encrypted, it needs to be set in an environment variable as well.
 If your ssh key is encrypted:
 
 ``` sh
-USER={Powder username} PWORD={Powder password} CERT={/path/to/cloulab.pem} SSHPWORD={ssh key password}./main.py
+USER={Powder username} PWORD={Powder password} CERT={/path/to/cloulab.pem} KEYPWORD={ssh key password}./main.py
 ```
 
 If not:
@@ -67,4 +67,5 @@ during the process.
 
 In some cases, the resources required by the profile used in the example might
 not be available. If so, you'll see a log message that indicates as much and the
-script will exit.
+script will exit. Take a look at the Resource Availability page on the Powder
+Portal to see the status of the required nuc5300 nodes.
