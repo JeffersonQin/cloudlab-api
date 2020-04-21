@@ -305,8 +305,6 @@ class OAINoS1Controlled:
                                             filename='ue_ping_enb.log')
 
     def _finish(self, test_status):
-        # TODO: Log results
-        import ipdb; ipdb.set_trace()
         if self.exp.status not in [self.exp.EXPERIMENT_NULL, self.exp.EXPERIMENT_NOT_STARTED]:
             self.exp.terminate()
 
