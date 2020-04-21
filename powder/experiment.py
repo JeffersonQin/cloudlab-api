@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import json
 import logging
-import os
 import sys
 import time
 
@@ -144,7 +143,7 @@ class PowderExperiment:
 
             self.still_provisioning = self.status in [self.EXPERIMENT_PROVISIONING,
                                                       self.EXPERIMENT_PROVISIONED]
-            logging.info('experiment status is {}'.format(output))
+            logging.info('experiment status is {}'.format(output.strip()))
         else:
             logging.error('failed to get experiment status')
 

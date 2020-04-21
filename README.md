@@ -8,8 +8,8 @@ automation.
 In `powder/experiment.py`, there is a class `PowderExperiment`, which serves as
 the main abstraction for starting, interacting with, and terminating a single
 Powder experiment. It relies on `powder/rpc.py` for interacting with the Powder
-RPC server, and `powder/ssh.py` for interacting with the nodes in the
-experiment, once it has become ready.
+RPC server, and `powder/ssh.py` for interacting with the nodes in the experiment
+after they've been stood up.
 
 The example use-case in `main.py` shows how one might use Powder resources in,
 e.g., a CI/CD pipeline. It does the following:
@@ -33,9 +33,9 @@ You'll need to use Python3 to run this example. Also, there are a couple of
 
 ### Credentials
 
-In order to run `main.py` or use `PowderExperiment` to interact with the Powder
-platform, you'll need to have added an ssh key to your Powder account. If you
-haven't already done this, you can find instructions
+In order to run `main.py` or use an instance of `PowderExperiment` to interact
+with the Powder platform, you'll need to have added an ssh key to your Powder
+account. If you haven't already done this, you can find instructions
 [here](https://docs.powderwireless.net/users.html#%28part._ssh-access%29).
 You'll also need to download your Powder credentials. You'll find a button to do
 so in the drop-down menu accessed by clicking on your username after logging
@@ -51,13 +51,15 @@ key is encrypted, it needs to be set in an environment variable as well.
 If your ssh key is encrypted:
 
 ``` sh
-USER={Powder username} PWORD={Powder password} CERT={/path/to/cloulab.pem} KEYPWORD={ssh key password}./main.py
+USER=your_powder_username PWORD=your_powder_password \
+CERT=/path/to/your/cloulab.pem KEYPWORD=your_ssh_key_password ./main.py
 ```
 
 If not:
 
 ``` sh
-USER={Powder username} PWORD={Powder password} CERT={/path/to/cloulab.pem} ./main.py
+USER=your_powder_username PWORD=your_powder_password \
+CERT=/path/to/your/cloulab.pem ./main.py
 ```
 
 It can take more than 30 minutes for all of the steps in `main.py` to complete,

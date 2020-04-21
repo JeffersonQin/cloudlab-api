@@ -55,9 +55,25 @@ class SSHConnection:
                 return self
             elif self.sshresponse == 1:
                 self.ssh.sendline('yes')
-                self.sshresponse = self.ssh.expect([self.prompt, 'Permission denied', pexpect.EOF, pexpect.TIMEOUT])
+                self.sshresponse = self.ssh.expect([self.prompt,
+                                                    'Enter passphrase for key.*:',
+                                                    'Permission denied',
+                                                    pexpect.EOF,
+                                                    pexpect.TIMEOUT])
                 if self.sshresponse == 0:
                     return self
+                elif self.sshresponse == 1:
+                    if self.password is None:
+                        logging.error('failed to login --- ssh key is encrypted but no pword provided')
+                        raise ValueError
+
+                    self.ssh.sendline(self.password)
+                    self.sshresponse = self.ssh.expect([self.prompt, 'Permission denied', pexpect.EOF, pexpect.TIMEOUT])
+                    if self.sshresponse == 0:
+                        return self
+                    else:
+                        logging.debug('failed to login --- response: {}'.format(self.sshresponse))
+                        logging.debug('retry count: {}'.format(retry_count))
                 else:
                     logging.debug('failed to login --- response: {}'.format(self.sshresponse))
                     logging.debug('retry count: {}'.format(retry_count))
@@ -142,16 +158,47 @@ class SSHConnection:
         logging.debug(cmd)
         while retry_count < 10:
             scp_spawn = pexpect.spawn(cmd, timeout = 100)
-            scp_response = scp_spawn.expect(['Are you sure you want to continue connecting (yes/no)?', pexpect.EOF, pexpect.TIMEOUT])
+            scp_response = scp_spawn.expect(['Are you sure you want to continue connecting (yes/no)?',
+                                             'Enter passphrase for key.*:',
+                                             pexpect.EOF,
+                                             pexpect.TIMEOUT])
             if scp_response == 0:
                 scp_spawn.sendline('yes')
-                scp_response = scp_spawn.expect([self.prompt, 'Permission denied', pexpect.EOF, pexpect.TIMEOUT])
+                scp_response = scp_spawn.expect([self.prompt,
+                                                 'Enter passphrase for key.*:',
+                                                 'Permission denied',
+                                                 pexpect.EOF,
+                                                 pexpect.TIMEOUT])
                 if scp_response == 0:
+                    return scp_response
+                elif scp_response == 1:
+                    if self.password is None:
+                        logging.error('failed to scp --- ssh key is encrypted but no pword provided')
+                        raise ValueError
+
+                    scp_spawn.sendline(self.password)
+                    scp_response = scp_spawn.expect([self.prompt, 'Permission denied', pexpect.EOF, pexpect.TIMEOUT])
+                    if scp_response == 0:
+                        return scp_response
+                    else:
+                        logging.debug('failed to scp --- response: {}'.format(scp_response))
+                        logging.debug('retry count: {}'.format(retry_count))
                     return scp_response
                 else:
                     logging.debug('scp failed with scp response {}'.format(scp_response))
                     logging.debug('retry count: {}'.format(retry_count))
             elif scp_response == 1:
+                if self.password is None:
+                    logging.error('failed to scp --- ssh key is encrypted but no pword provided')
+                    raise ValueError
+
+                scp_spawn.sendline(self.password)
+                scp_response = scp_spawn.expect([self.prompt, 'Permission denied', pexpect.EOF, pexpect.TIMEOUT])
+                if scp_response == 0:
+                    return scp_response
+                else:
+                    logging.debug('failed to scp --- response: {}'.format(scp_response))
+                    logging.debug('retry count: {}'.format(retry_count))
                 return scp_response
             elif scp_response == 2:
                 logging.debug('scp timed out')
