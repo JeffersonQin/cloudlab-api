@@ -201,8 +201,8 @@ class SSHConnection:
                     logging.debug('retry count: {}'.format(retry_count))
                 return scp_response
             elif scp_response == 2:
-                logging.debug('scp timed out')
-                logging.debug('retry count: {}'.format(retry_count))
+                logging.debug('copy succeeded')
+                return scp_response
 
             time.sleep(1)
             retry_count += 1
