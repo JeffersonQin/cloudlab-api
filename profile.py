@@ -1,6 +1,6 @@
-"""This profile stands up a single XenVM instance for running the example in
-main.py, which programmaticaly stands up another experiment and interacts with
-it using the tools in `./powder/`.
+"""This profile provides a single compute node for running the example in
+main.py, which programmaticaly starts an experiment based on another profile and
+interacts with it using the tools in `./powder/`.
 
 See the project
 [README](https://gitlab.flux.utah.edu/dmaas/powder-control/-/blob/master/README.md)
@@ -13,5 +13,5 @@ import geni.rspec.pg as rspec
 
 
 request = portal.context.makeRequestRSpec()
-node = request.XenVM('control-node')
+node = request.RawPC('control-node')
 portal.context.printRequestRSpec()
