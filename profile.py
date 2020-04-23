@@ -14,4 +14,5 @@ import geni.rspec.pg as rspec
 
 request = portal.context.makeRequestRSpec()
 node = request.RawPC('control-node')
+node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU18-64-STD"
 portal.context.printRequestRSpec()
