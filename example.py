@@ -307,6 +307,13 @@ class OAINoS1Controlled:
         if self.exp.status not in [self.exp.EXPERIMENT_NULL, self.exp.EXPERIMENT_NOT_STARTED]:
             self.exp.terminate()
 
+        if test_status == self.TEST_NOT_STARTED:
+            logging.info('The experiment could not be started... maybe the resources were unavailable.')
+        elif test_status == self.TEST_FAILED:
+            logging.info('The test failed.')
+        elif test_status == self.TEST_SUCCEEDED:
+            logging.info('The test succeeded.')
+
         sys.exit(test_status)
 
 
