@@ -16,14 +16,14 @@ logging.basicConfig(
 
 
 class OAINoS1Controlled:
-    """Instantiates a Powder Experiment based on the Powder Profile `PROFILE_NAME`
+    """Instantiates a Powder experiment based on the Powder profile `PROFILE_NAME`
     and interacts with the nodes in the experiment in order to setup, build, and
     test an OAI RAN network in a controlled RF environment. Logs for each step
     are collected from the nodes and stored in this directory.
 
     """
 
-    # Powder Experiment credentials
+    # Powder experiment credentials
     PROJECT_NAME = 'PowderProfiles'
     PROFILE_NAME = 'oai-nos1-wired'
     EXPERIMENT_NAME_PREFIX = 'oai-nos1-'
@@ -62,7 +62,7 @@ class OAINoS1Controlled:
         return ''.join(random.choice(characters) for i in range(strlen))
 
     def _start_powder_experiment(self):
-        logging.info('Instantiating Powder Experiment...')
+        logging.info('Instantiating Powder experiment...')
         self.exp = pexp.PowderExperiment(experiment_name=self.experiment_name,
                                          project_name=self.PROJECT_NAME,
                                          profile_name=self.PROFILE_NAME)
@@ -276,8 +276,8 @@ class OAINoS1Controlled:
 
     def _kill_nos1_network(self):
         logging.info('Killing eNB and UE processes...')
-        self._ue_exec_proc.kill()
-        self._enb_exec_proc.kill()
+        self._ue_exec_proc.terminate()
+        self._enb_exec_proc.terminate()
 
     def _run_ping_test(self):
         self._run_ping_enb()

@@ -19,7 +19,7 @@ class PowderExperiment:
     Args:
         experiment_name (str): A name for the experiment. Must be less than 16 characters.
         project_name (str): The name of the Powder Project associated with the experiment.
-        profile_name (str): The name of an existing Powder Profile you want to use for the experiment.
+        profile_name (str): The name of an existing Powder profile you want to use for the experiment.
 
     Attributes:
         status (int): Represents the last known status of the experiment as
@@ -155,7 +155,7 @@ class Node:
     interacting with the node.
 
     Attributes:
-        client_id (str): Matches the id defined for the node in the Powder Profile.
+        client_id (str): Matches the id defined for the node in the Powder profile.
         ip_address (str): The public IP address of the node.
         hostname (str): The hostname of the node.
         ssh (SSHConnection): For interacting with the node via ssh through pexpect.

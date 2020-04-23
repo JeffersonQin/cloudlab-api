@@ -1,9 +1,7 @@
 # About
 
-This profile shows how one can instantiate and interact with a Powder Experiment
-programmatically in order to accomplish fairly complicated tasks. This approach
-will be useful to experimenters with projects that require some level of
-automation.
+This profile shows how one can instantiate and interact with a Powder experiment
+programmatically in order to accomplish fairly complicated tasks.
 
 In `powder/experiment.py`, there is a class `PowderExperiment`, which serves as
 the main abstraction for starting, interacting with, and terminating a single
@@ -14,7 +12,7 @@ after they've been stood up.
 The example use-case in `main.py` shows how one might use Powder resources in,
 e.g., a CI/CD pipeline. It does the following:
 
-1. instantiates a Powder Experiment based on an existing Powder Profile which
+1. instantiates a Powder experiment based on an existing Powder Profile which
    includes two Intel NUC5300s with USRP B210 SDRs;
 2. installs some dependencies on the experimental nodes;
 3. tunes the CPU settings on the nodes for best performance;
@@ -28,8 +26,12 @@ Logs are collected for each step and parsed in order to verify success/failure.
 
 ### Dependencies
 
-You'll need to use Python3 to run this example. Also, there are a couple of
-3rd-party dependencies listed in `requirements.txt` that you'll need to install.
+This example requires Python 3 and a couple 3rd-party packages, which are listed
+in `requirements.txt`. You can install the packages by doing
+
+``` sh
+pip install -r requirements.txt
+```
 
 ### Credentials
 
