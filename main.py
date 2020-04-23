@@ -231,7 +231,6 @@ class OAINoS1Controlled:
             nos1_up = self._check_nos1_network()
             if not nos1_up:
                 logging.info('UE failed to connect to eNB')
-                logging.info('killing eNB and UE processes')
                 self._kill_nos1_network()
                 retry_count += 1
 
