@@ -2,9 +2,7 @@
 programmaticaly starts an experiment based on another profile and interacts with
 it using the tools in `./powder/`.
 
-See the project
-[README](https://gitlab.flux.utah.edu/dmaas/powder-control/-/blob/master/README.md)
-for more information.
+See the project README for more information.
 
 """
 
