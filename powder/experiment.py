@@ -133,15 +133,15 @@ class PowderExperiment:
         rval, response = prpc.get_experiment_status(self.project_name,
                                                     self.experiment_name)
         if rval == prpc.RESPONSE_SUCCESS:
-            output = response['output']
-            if output == 'Status: ready\n':
+            output = str(response['output']).splitlines()[0].strip().lower()
+            if output == 'status: ready':
                 self.status = self.EXPERIMENT_READY
                 self._get_manifests()._parse_manifests()
-            elif output == 'Status: provisioning\n':
+            elif output == 'status: provisioning':
                 self.status = self.EXPERIMENT_PROVISIONING
-            elif output == 'Status: provisioned\n':
+            elif output == 'status: provisioned':
                 self.status = self.EXPERIMENT_PROVISIONED
-            elif output == 'Status: failed\n':
+            elif output == 'status: failed':
                 self.status = self.EXPERIMENT_FAILED
 
             self.still_provisioning = self.status in [self.EXPERIMENT_PROVISIONING,
