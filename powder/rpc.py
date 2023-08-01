@@ -60,6 +60,7 @@ except KeyError:
 
 def do_method(method, params):
     ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+    ctx.set_ciphers('ALL:@SECLEVEL=0')
     ctx.load_cert_chain(CERT_PATH, password=PEM_PWORD)
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
