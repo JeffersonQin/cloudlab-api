@@ -72,8 +72,8 @@ class PowderExperiment:
 
             poll_count = 0
             while self.still_provisioning and poll_count < self._poll_count_max:
-                self._get_status()
                 time.sleep(self.POLL_INTERVAL_S)
+                self._get_status()
         else:
             self.status = self.EXPERIMENT_FAILED
             logging.info(response)
