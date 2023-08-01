@@ -9,6 +9,7 @@ import xmltodict
 import powder.rpc as prpc
 import powder.ssh as pssh
 
+from collections import OrderedDict
 
 class PowderExperiment:
     """Represents a single powder experiment. Can be used to start, interact with,
@@ -108,6 +109,8 @@ class PowderExperiment:
         """Parse experiment manifests and add nodes to lookup table."""
         for manifest in self._manifests:
             nodes = manifest['rspec']['node']
+            if isinstance(nodes, OrderedDict):
+                nodes = [nodes]
             for node in nodes:
                 # only need to add nodes with public IP addresses for now
                 try:
